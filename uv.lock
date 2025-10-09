@@ -337,7 +337,7 @@ wheels = [
 ]
 
 [[package]]
-name = "mission17-rocketpy-v1-10-0"
+name = "mission-odyssey"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

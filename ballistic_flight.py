@@ -14,7 +14,7 @@ env.set_atmospheric_model(
     type="custom_atmosphere",
     pressure=None,       # utiliza ISA para pressão
     temperature=None,    # utiliza ISA para temperatura
-    wind_u=[(0, 10)],    # 10 m/s na componente leste (U) a partir do solo
+    wind_u=[(0, -10)],    # 10 m/s na componente leste (U) a partir do solo
     wind_v=[(0, 0)]      # 0 m/s na componente norte (V) a partir do solo
 )
 
@@ -35,14 +35,14 @@ Kratosv3 = SolidMotor(
     burn_time=3.911,
     throat_radius=8.25 / 1000,
     coordinate_system_orientation="nozzle_to_combustion_chamber",
-
 )
+
 LTS = Rocket(
     radius=105 / 2000,
     mass=5.365,
     inertia=(1.22, 1.22, 0.01),
-    power_off_drag="data/Drag curve.csv",
-    power_on_drag="data/Drag curve.csv",
+    power_off_drag="data/drag_curve.csv",
+    power_on_drag="data/drag_curve.csv",
     center_of_mass_without_motor=0.991,
     coordinate_system_orientation="nose_to_tail",
     
@@ -64,14 +64,7 @@ fin_set = LTS.add_trapezoidal_fins(
 tail = LTS.add_tail(
     top_radius=102/2000, bottom_radius=60/2000, length=0.080, position=1.92
 )
-main = LTS.add_parachute(
-    name="Main",
-    cd_s=2.542,
-    trigger=500,
-    sampling_rate=105,
-    lag=0.5,
-    noise=(0, 8.3, 0.5),
-)
+
 rail_buttons = LTS.set_rail_buttons(
     upper_button_position=0.975,
     lower_button_position=1.89,
