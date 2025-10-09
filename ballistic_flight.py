@@ -1,8 +1,9 @@
-from rocketpy import Environment, SolidMotor, Rocket, Flight
+import datetime
+
+from rocketpy import Environment, Flight, Rocket, SolidMotor
 
 env = Environment(latitude=-21.90795, longitude=-48.96156, elevation=495)
 
-import datetime
 
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
@@ -12,10 +13,10 @@ env.set_date(
 
 env.set_atmospheric_model(
     type="custom_atmosphere",
-    pressure=None,       # utiliza ISA para pressão
-    temperature=None,    # utiliza ISA para temperatura
-    wind_u=[(0, -10)],    # 10 m/s na componente leste (U) a partir do solo
-    wind_v=[(0, 0)]      # 0 m/s na componente norte (V) a partir do solo
+    pressure=None,  # utiliza ISA para pressão
+    temperature=None,  # utiliza ISA para temperatura
+    wind_u=[(0, -10)],  # 10 m/s na componente leste (U) a partir do solo
+    wind_v=[(0, 0)],  # 0 m/s na componente norte (V) a partir do solo
 )
 
 Kratosv3 = SolidMotor(
@@ -25,7 +26,7 @@ Kratosv3 = SolidMotor(
     nozzle_radius=24.5 / 1000,
     grain_number=4,
     grain_density=1890,
-    grain_outer_radius=29.7/ 1000,
+    grain_outer_radius=29.7 / 1000,
     grain_initial_inner_radius=12.7 / 1000,
     grain_initial_height=100 / 1000,
     grain_separation=5 / 1000,
@@ -45,13 +46,10 @@ LTS = Rocket(
     power_on_drag="data/drag_curve.csv",
     center_of_mass_without_motor=0.991,
     coordinate_system_orientation="nose_to_tail",
-    
 )
 LTS.add_motor(Kratosv3, position=2)
 
-nose_cone = LTS.add_nose(
-    length=0.21, kind="elliptical", position=0
-)
+nose_cone = LTS.add_nose(length=0.21, kind="elliptical", position=0)
 
 fin_set = LTS.add_trapezoidal_fins(
     n=4,
@@ -62,7 +60,7 @@ fin_set = LTS.add_trapezoidal_fins(
 )
 
 tail = LTS.add_tail(
-    top_radius=102/2000, bottom_radius=60/2000, length=0.080, position=1.92
+    top_radius=102 / 2000, bottom_radius=60 / 2000, length=0.080, position=1.92
 )
 
 rail_buttons = LTS.set_rail_buttons(
@@ -72,6 +70,6 @@ rail_buttons = LTS.set_rail_buttons(
 )
 test_flight = Flight(
     rocket=LTS, environment=env, rail_length=4, inclination=80, heading=90
-    )
+)
 
 test_flight.all_info()
