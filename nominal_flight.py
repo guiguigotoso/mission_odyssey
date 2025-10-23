@@ -1,6 +1,10 @@
 import datetime
+<<<<<<< HEAD
 
 from rocketpy import Environment, Flight, Rocket, SolidMotor
+=======
+from rocketpy import Environment, SolidMotor, Rocket, Flight
+>>>>>>> 0e45c1c (fix data issues)
 
 env = Environment(latitude=-21.90795, longitude=-48.96156, elevation=495)
 
@@ -20,6 +24,7 @@ env.set_atmospheric_model(
 )
 
 Kratosv3 = SolidMotor(
+<<<<<<< HEAD
     thrust_source="data/meteor-RASP_Kratos v3.2.eng",
     dry_mass=1.758,
     dry_inertia=(0.0567, 0.0567, 0.0016),
@@ -32,43 +37,89 @@ Kratosv3 = SolidMotor(
     grain_separation=5 / 1000,
     grains_center_of_mass_position=0.2978,
     center_of_dry_mass_position=0.268,
+=======
+    thrust_source="data/thrust_curve.csv",  # o arquivo .csv deve ter as colunas na ordem: tempo(s), empuxo(N)
+    dry_mass=8.507,
+    dry_inertia=(0.8723763, 0.8723763, 0.02510097),
+    nozzle_radius=37 / 1000,
+    grain_number=5,
+    grain_density=1749,
+    grain_outer_radius=92.20 / 1000,
+    grain_initial_inner_radius=52.2 / 1000,
+    grain_initial_height=170 / 1000,
+    grain_separation=4 / 1000,
+    grains_center_of_mass_position=598.3051 / 1000,
+    center_of_dry_mass_position=635.69 / 1000,
+>>>>>>> 0e45c1c (fix data issues)
     nozzle_position=0,
-    burn_time=3.911,
-    throat_radius=8.25 / 1000,
+    burn_time=3.239,
+    throat_radius=12.75 / 1000,
     coordinate_system_orientation="nozzle_to_combustion_chamber",
 )
+
 LTS = Rocket(
-    radius=105 / 2000,
-    mass=5.365,
-    inertia=(1.22, 1.22, 0.01),
+    radius=127 / 2000,
+    mass=26490 / 1000,
+    inertia=(-12.54, 360.79, 1000),
     power_off_drag="data/drag_curve.csv",
     power_on_drag="data/drag_curve.csv",
+<<<<<<< HEAD
     center_of_mass_without_motor=0.991,
     coordinate_system_orientation="nose_to_tail",
 )
 LTS.add_motor(Kratosv3, position=2)
 
 nose_cone = LTS.add_nose(length=0.21, kind="elliptical", position=0)
+=======
+    center_of_mass_without_motor=1830 / 1000,
+    coordinate_system_orientation="tail_to_nose",
+)
+LTS.add_motor(Kratosv3, position=2)
+
+nose_cone = LTS.add_nose(
+    length=300 / 1000,
+    kind="elliptical",
+    position=2200 / 1000,
+)
+>>>>>>> 0e45c1c (fix data issues)
 
 fin_set = LTS.add_trapezoidal_fins(
     n=4,
-    root_chord=0.147,
-    tip_chord=0.050,
-    span=0.110,
-    position=1.76,
+    root_chord=300 / 1000,
+    tip_chord=150 / 1000,
+    span=170 / 1000,
+    position=2200 / 1000,
 )
 
 tail = LTS.add_tail(
+<<<<<<< HEAD
     top_radius=102 / 2000, bottom_radius=60 / 2000, length=0.080, position=1.92
+=======
+    top_radius=102 / 2000,
+    bottom_radius=60 / 2000,
+    length=0.080,
+    position=1.92,
+)
+rail_buttons = LTS.set_rail_buttons(
+    upper_button_position=985 / 1000,
+    lower_button_position=10 / 1000,
+    angular_position=90,
+)
+
+drogue = LTS.add_parachute(
+    name="Drogue",
+    cd_s=1.27125,
+    trigger="apogee",
+    sampling_rate=100,
+>>>>>>> 0e45c1c (fix data issues)
 )
 main = LTS.add_parachute(
     name="Main",
-    cd_s=2.542,
-    trigger=500,
-    sampling_rate=105,
-    lag=0.5,
-    noise=(0, 8.3, 0.5),
+    cd_s=6.921,
+    trigger=300,
+    sampling_rate=100,
 )
+<<<<<<< HEAD
 rail_buttons = LTS.set_rail_buttons(
     upper_button_position=0.975,
     lower_button_position=1.89,
@@ -78,4 +129,15 @@ test_flight = Flight(
     rocket=LTS, environment=env, rail_length=4, inclination=80, heading=90
 )
 
+=======
+
+test_flight = Flight(
+    rocket=LTS,
+    environment=env,
+    rail_length=6,
+    inclination=80,
+    heading=90,
+)
+
+>>>>>>> 0e45c1c (fix data issues)
 test_flight.all_info()

@@ -1,6 +1,4 @@
-import datetime
-
-from rocketpy import Environment, Flight, Rocket, SolidMotor
+from rocketpy import Environment, SolidMotor, Rocket, Flight
 
 env = Environment(latitude=-21.90795, longitude=-48.96156, elevation=495)
 
@@ -19,6 +17,7 @@ env.set_atmospheric_model(
     wind_v=[(0, 0)],  # 0 m/s na componente norte (V) a partir do solo
 )
 
+
 Kratosv3 = SolidMotor(
     thrust_source="data/meteor-RASP_Kratos v3.2.eng",
     dry_mass=1.758,
@@ -33,15 +32,17 @@ Kratosv3 = SolidMotor(
     grains_center_of_mass_position=0.2978,
     center_of_dry_mass_position=0.268,
     nozzle_position=0,
-    burn_time=3.911,
-    throat_radius=8.25 / 1000,
+    burn_time=3.239,
+    throat_radius=12.75 / 1000,
+    interpolation_method="linear",
     coordinate_system_orientation="nozzle_to_combustion_chamber",
 )
 
+
 LTS = Rocket(
-    radius=105 / 2000,
-    mass=5.365,
-    inertia=(1.22, 1.22, 0.01),
+    radius=127 / 2000,
+    mass=26490 / 1000,
+    inertia=(-12.54, 360.79, 1000),
     power_off_drag="data/drag_curve.csv",
     power_on_drag="data/drag_curve.csv",
     center_of_mass_without_motor=0.991,
@@ -53,10 +54,10 @@ nose_cone = LTS.add_nose(length=0.21, kind="elliptical", position=0)
 
 fin_set = LTS.add_trapezoidal_fins(
     n=4,
-    root_chord=0.147,
-    tip_chord=0.050,
-    span=0.110,
-    position=1.76,
+    root_chord=300 / 1000,
+    tip_chord=150 / 1000,
+    span=170 / 1000,
+    position=2200 / 1000,
 )
 
 tail = LTS.add_tail(
@@ -64,10 +65,11 @@ tail = LTS.add_tail(
 )
 
 rail_buttons = LTS.set_rail_buttons(
-    upper_button_position=0.975,
-    lower_button_position=1.89,
-    angular_position=45,
+    upper_button_position=985 / 1000,
+    lower_button_position=10 / 1000,
+    angular_position=90,
 )
+
 test_flight = Flight(
     rocket=LTS, environment=env, rail_length=4, inclination=80, heading=90
 )
