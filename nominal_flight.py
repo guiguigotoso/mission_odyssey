@@ -1,10 +1,5 @@
 import datetime
-<<<<<<< HEAD
-
-from rocketpy import Environment, Flight, Rocket, SolidMotor
-=======
 from rocketpy import Environment, SolidMotor, Rocket, Flight
->>>>>>> 0e45c1c (fix data issues)
 
 env = Environment(latitude=-21.90795, longitude=-48.96156, elevation=495)
 
@@ -24,20 +19,6 @@ env.set_atmospheric_model(
 )
 
 Kratosv3 = SolidMotor(
-<<<<<<< HEAD
-    thrust_source="data/meteor-RASP_Kratos v3.2.eng",
-    dry_mass=1.758,
-    dry_inertia=(0.0567, 0.0567, 0.0016),
-    nozzle_radius=24.5 / 1000,
-    grain_number=4,
-    grain_density=1890,
-    grain_outer_radius=29.7 / 1000,
-    grain_initial_inner_radius=12.7 / 1000,
-    grain_initial_height=100 / 1000,
-    grain_separation=5 / 1000,
-    grains_center_of_mass_position=0.2978,
-    center_of_dry_mass_position=0.268,
-=======
     thrust_source="data/thrust_curve.csv",  # o arquivo .csv deve ter as colunas na ordem: tempo(s), empuxo(N)
     dry_mass=8.507,
     dry_inertia=(0.8723763, 0.8723763, 0.02510097),
@@ -50,7 +31,6 @@ Kratosv3 = SolidMotor(
     grain_separation=4 / 1000,
     grains_center_of_mass_position=598.3051 / 1000,
     center_of_dry_mass_position=635.69 / 1000,
->>>>>>> 0e45c1c (fix data issues)
     nozzle_position=0,
     burn_time=3.239,
     throat_radius=12.75 / 1000,
@@ -63,14 +43,6 @@ LTS = Rocket(
     inertia=(-12.54, 360.79, 1000),
     power_off_drag="data/drag_curve.csv",
     power_on_drag="data/drag_curve.csv",
-<<<<<<< HEAD
-    center_of_mass_without_motor=0.991,
-    coordinate_system_orientation="nose_to_tail",
-)
-LTS.add_motor(Kratosv3, position=2)
-
-nose_cone = LTS.add_nose(length=0.21, kind="elliptical", position=0)
-=======
     center_of_mass_without_motor=1830 / 1000,
     coordinate_system_orientation="tail_to_nose",
 )
@@ -81,7 +53,6 @@ nose_cone = LTS.add_nose(
     kind="elliptical",
     position=2200 / 1000,
 )
->>>>>>> 0e45c1c (fix data issues)
 
 fin_set = LTS.add_trapezoidal_fins(
     n=4,
@@ -92,9 +63,6 @@ fin_set = LTS.add_trapezoidal_fins(
 )
 
 tail = LTS.add_tail(
-<<<<<<< HEAD
-    top_radius=102 / 2000, bottom_radius=60 / 2000, length=0.080, position=1.92
-=======
     top_radius=102 / 2000,
     bottom_radius=60 / 2000,
     length=0.080,
@@ -111,7 +79,6 @@ drogue = LTS.add_parachute(
     cd_s=1.27125,
     trigger="apogee",
     sampling_rate=100,
->>>>>>> 0e45c1c (fix data issues)
 )
 main = LTS.add_parachute(
     name="Main",
@@ -119,17 +86,6 @@ main = LTS.add_parachute(
     trigger=300,
     sampling_rate=100,
 )
-<<<<<<< HEAD
-rail_buttons = LTS.set_rail_buttons(
-    upper_button_position=0.975,
-    lower_button_position=1.89,
-    angular_position=45,
-)
-test_flight = Flight(
-    rocket=LTS, environment=env, rail_length=4, inclination=80, heading=90
-)
-
-=======
 
 test_flight = Flight(
     rocket=LTS,
@@ -139,5 +95,4 @@ test_flight = Flight(
     heading=90,
 )
 
->>>>>>> 0e45c1c (fix data issues)
 test_flight.all_info()

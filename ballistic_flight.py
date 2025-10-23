@@ -1,7 +1,7 @@
+import datetime
 from rocketpy import Environment, SolidMotor, Rocket, Flight
 
 env = Environment(latitude=-21.90795, longitude=-48.96156, elevation=495)
-
 
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
